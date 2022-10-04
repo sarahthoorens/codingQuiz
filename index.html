@@ -8,26 +8,37 @@
      <title>Coding Quiz</title>
 </head>
 <header>
-      <button id="high-scores-btn">View High Scores</button>
-      <aside id="countdown-clock"></aside>
+      <button id="score">View High Scores</button>
+      <aside id="countdown-clock" class=""></aside>
 </header>
 <body>
   <section class="container">
+    <section id="welcome" class=""><h1>Welcome to the coding quiz. Test your knowlege here.</h1>
+      <p>Try to answer the following code-related questions within the time limit. Keep in mind that incorrect answers with penalize your time by 15 seconds!</p>
+    </section>
     <section id="question-section" class="hidden">
-       <section id="question"><h1>Welcome to the coding quiz. Test your knowlege here. </h1></section>
+       <section id="question"><h1></h1></section>
        <section id="answer-buttons" class="button-grid ">
-        <button id="answer1" class = "btn answer" data-number="1"></button>
-        <button id="answer2" class = "btn answer" data-number="2"></button>
-        <button id="answer3" class = "btn answer" data-number="3"></button>
-        <button id="answer4" class = "btn answer" data-number="4"></button>
+        <button id="answer1" class = "btn answer"></button>
+        <button id="answer2" class = "btn answer"></button>
+        <button id="answer3" class = "btn answer"></button>
+        <button id="answer4" class = "btn answer"></button>
         </section>
-        <p id="wrong" class="hidden"></p>
+          <section id="response"><p></p></section>
+          
     </section>
   <section id="control-button-container">
         <button id="start-button" class="btn ">Start</button>
-        <button id="score-button" class="btn ">See High Scores</button>
+        <button id="score-button" class="btn hidden">See High Scores</button>
   </section>
  </section>
+ <section id="form" class="hidden">
+  <form action="" method="get">
+    <label for="initials">Initials:</label>
+    <input type="text" id="initials" name="initials"><br><br>
+    <input type="submit" value="Submit">
+  </form>
+</section>
 </body>
 </html>
 <script src="./assets/script.js"></script>

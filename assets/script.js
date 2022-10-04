@@ -1,31 +1,33 @@
 const startButton = document.getElementById('start-button')
 const questionSectionElement = document.getElementById('question-section')
-startButton.addEventListener('click', startGame);
+const welcomeElement = document.getElementById('welcome')
+const formElement = document.getElementById('form')
 let questionElement = document.getElementById('question')
 const answerButtonsElement = document.getElementById('answer-buttons')
 let answer1Element = document.getElementById('answer1')
 let answer2Element = document.getElementById('answer2')
 let answer3Element = document.getElementById('answer3')
 let answer4Element = document.getElementById('answer4')
+let scoreElement = document.getElementById('score-button')
+
+
+let response = document.getElementById('response')
+let score = 0
+scoreElement.textContent = score
 
 let countdownClock = document.getElementById('countdown-clock')
+let secondsLeft = 59;
 
-
-function timer (min, sec) { 
-    var minute = 1;
-    var sec = 59;
-    setInterval(function() {
-      countdownClock.innerHTML = minute + " : " + sec;
-      sec--;
-      if (sec == 00) {
-        minute --;
-        sec = 60;
-        if (minute == 00) {
-          minute = 0;
-        }
-      }
-    }, 1000);
+function countdown() {
+  let timerInterval = setInterval(function() {
+    secondsLeft--;
+    countdownClock.innerHTML = secondsLeft + " seconds remain";
+    if (secondsLeft <=0 ) {
+      countdownClock.setAttribute('class', 'hidden');
+      endPage();
     }
+  }, 1000);
+}
 
 let questionsList = [
     {
@@ -47,13 +49,31 @@ let questionsList = [
     correct: 'parentheses',
 },
     {
-    question: '3Commonly used data types do NOT include: ',
+    question: 'Arrays in JavaScript can be used to store ________. ',
     answers: {
-    answer1: 'apples',
-    answer2: 'oranges',
-    answer3: 'pears',
-    answer4: 'grapes'},
-    correct: 'oranges',
+    answer1: 'numbers & strings',
+    answer2: 'other arrays',
+    answer3: 'booleans',
+    answer4: 'all of the above'},
+    correct: 'all of the above',
+} ,
+{
+  question: 'String values must be enclosed with _________ when being assigned to variables.',
+  answers: {
+  answer1: 'semicolons',
+  answer2: 'brackets',
+  answer3: 'quotes',
+  answer4: 'commas'},
+  correct: 'quotes',
+},
+{
+  question: 'The correct bash terminal command to check if your local GitHub file is up to date is_________',
+  answers: {
+  answer1: 'git stash',
+  answer2: 'mkdir',
+  answer3: 'git status',
+  answer4: 'git commit'},
+  correct: 'git status',
 } 
 ]
 
@@ -61,54 +81,31 @@ let questionCounter = 0
 
 function startGame() {
     startButton.setAttribute('class', 'hidden');
+    welcomeElement.children[0].setAttribute('class', 'hidden');
+    welcomeElement.children[1].setAttribute('class', 'hidden');
     questionSectionElement.setAttribute('class', 'hidden');
     questionSectionElement.classList.remove('hidden');
-    timer();
+    countdown();
     setNextQuestion();
   }
+
+startButton.addEventListener('click', startGame)
    
-
-
-    
-
-
-    
-function checkAnswer(event) {
-const currentQuestion = questionsList[questionCounter] 
-const selectedButton = event.target;
-console.log(event.target.textContent);
-console.log(currentQuestion.correct);
-const isCorrect = event.target.textContent === currentQuestion.correct; 
-if (isCorrect) { 
-// score++;
-questionCounter++;
-console.log(questionCounter);
-setNextQuestion();
-}
-else {
-  timer(sec=-15)
-}
-}
-
 function setNextQuestion () {
+  response.setAttribute('class', 'hidden')
   const currentQuestion = questionsList[questionCounter] 
  
   if (!currentQuestion) {
+    secondsLeft===0;
     endPage();
   } else {
     let title = currentQuestion.question;
-    questionElement.textContent = title;
+    questionElement.children[0].textContent = title;
     var choiceOption = currentQuestion.answers
     var choice1 = choiceOption['answer1'];
     var choice2 = choiceOption['answer2'];
     var choice3 = choiceOption['answer3'];
     var choice4 = choiceOption['answer4'];
-    // console.log(questionElement);
-    // let choice1 = currentQuestion.answers.answer1;
-    // let choice2 = currentQuestion.answers.answer2;
-    // let choice3 = currentQuestion.answers.answer3;
-    // let choice4 = currentQuestion.answers.answer4;
-    // console.log(answerButtonsElement)
     answer1Element.textContent = choice1;
       answer1Element.setAttribute('value', choice1);
     answer2Element.textContent = choice2;
@@ -116,121 +113,102 @@ function setNextQuestion () {
     answer3Element.textContent = choice3;
       answer3Element.setAttribute('value', choice3);
     answer4Element.textContent = choice4;
-      answer4Element.setAttribute('value', choice4);
-   
-  }
-
-
-
-
-
+      answer4Element.setAttribute('value', choice4);  
+    }
 }
 
 answer1Element.addEventListener('click', checkAnswer)
 answer2Element.addEventListener('click', checkAnswer)
 answer3Element.addEventListener('click', checkAnswer)
 answer4Element.addEventListener('click', checkAnswer)
+
+function checkAnswer(event) {
+  const currentQuestion = questionsList[questionCounter] 
+  const selectedButton = event.target;
+  console.log(event.target.textContent);
+  const isCorrect = event.target.textContent === currentQuestion.correct; 
+  if (isCorrect) { 
+  score++;
+  console.log(score)
+  questionCounter++;
+  console.log(questionCounter);
+  response.children[0].textContent = "Correct";
+  setNextQuestion();
+  }
+  else {
+  secondsLeft -= 15;
+  response.children[0].textContent = "Wrong. Try again";
+  }
+  }
  
-    startButton.addEventListener('click', startGame)
-
-    // for (var i = 0; i < question.length; i++) {
-    //   var choice = answerBtnEl.addEventListener('click', function(event) {
-    //     if (choice === currentQuestion.question[i].correct) {
-    //       console.log(choice);
-    //       score++;
-          // startGame;
+  function endPage() {
+    answerButtonsElement.setAttribute('class', 'hidden')
+    countdownClock.textContent = 'Time up!';
+    questionSectionElement.textContent = `You're done! \nYour final score is ${score} out of 5.`
+    formElement.setAttribute('class', 'block');
 
 
-
-
-
-// var choice =  answerBtnEl.addEventListener('click', selectAnswer)
-
-// function selectAnswer (e) {
-//     if (choice === question[i].correct) {
-//       score++;
-//       startGame;
-     
-//     }
-//     else {questionSectionElement.textContent = "wrong!";}
-// }
-// }
-
-
-
-// const startButton = document.getElementById('start-button');
-// const questionSectionElement = document.getElementById('question-section')
-// const submitButton = document.getElementById('submit-button')
-// const scoreButton = document.getElementById('score-button')
-// const containerElement = document.querySelector('.container')
-// let questionElement = document.getElementById('question');
-// let answer1Element = document.getElementById('answer1')
-// let answer2Element = document.getElementById('answer2')
-// let answer3Element = document.getElementById('answer3')
-// let answer4Element = document.getElementById('answer4')
-// let countdownClock = document.getElementById('countdown-clock')
-
-
-
-function endPage() {
-    countdownClock.textContent = '';
-    questionElement.textContent = `You're done!`
-    var form = document.createElement('form');
-    form.setAttribute('action', ' ');
-    form.setAttribute('method', 'get');
-    var label = document.createElement('label');
-    label.setAttribute('for', 'name');
-    label.textContent = 'Enter initials: '
-    var inputInitials = document.createElement('input');
-    inputInitials.setAttribute('type', 'text');
-    var initialsButton = document.createElement('button');
-    questionSectionElement.appendChild(form);
-    questionSectionElement.appendChild(label);
-    questionSectionElement.appendChild(input);
-    console.log(inputInitials)
-}
-// let 
-// function highScores() {
-//     var listEl = document.createElement("ol");
-//     var li1 = document.createElement("li");
-//     var li2 = document.createElement("li");
-//     var li3 = document.createElement("li");
-//     var li4 = document.createElement("li");
-//     var li5 = document.createElement("li");
-//     var li6 = document.createElement("li");
-
-
-
-// }
-
-
-
-// // const getSelectedAnswer = () => {
-// //     let answers = docucment.querySelectorAll('answerbutton')
-// //     let selectedAnswer = false;
-// //     if (Element(click, element.id);)
-// }
-
-// function getFirstQuestion() { 
-//     let questionCounter = 0;
-//         let currentQuestion = questionsList[questionCounter];
-//         questionElement.textContent = currentQuestion.question;
-        
-//         answer1Element.textContent = currentQuestion.answer1;
-//         answer2Element.textContent = currentQuestion.answer2;
-//         answer3Element.textContent = currentQuestion.answer3;
-//         answer4Element.textContent = currentQuestion.answer4;
+  } 
     
-//     let possibleAnswers = currentQuestion.answers
-// }}
 
+var highscore = 0
+var storedHighScore = localStorage.getItem("highscore");
+if (storedHighScore  || score > parseInt(storedHighScore)) {
+  localStorage.setItem("highscore", score);
+}
+function highScores() {
+    var listEl = document.createElement("ol");
+    var li1 = document.createElement("li");
+    var li2 = document.createElement("li");
+    var li3 = document.createElement("li");
+    var li4 = document.createElement("li");
+    var li5 = document.createElement("li");
+    form.addEventListener('submit', (event) => {
+    
+    });
 
-//     }
-//     else {
-//         donePage()
-//     }
-   
-// })
+}
 
-// function donePage () {
+/////////////////////////
+// var student = document.getElementById("student-names");
+// var grade = document.getElementById("grades");
+// var comment = document.getElementById("msg");
+// var saveButton = document.getElementById("save");
+// var savedName = document.getElementById("saved-name");
 
+// function saveLastGrade() {
+//   // Save related form data as an object
+//   var studentGrade = {
+//     student: student.value,
+//     grade: grade.value,
+//     comment: comment.value.trim()
+//   };
+//   // Use .setItem() to store object in storage and JSON.stringify to convert it as a string
+//   localStorage.setItem("studentGrade", JSON.stringify(studentGrade));
+// }
+
+// function renderLastGrade() {
+//   // Use JSON.parse() to convert text to JavaScript object
+//   var lastGrade = JSON.parse(localStorage.getItem("studentGrade"));
+//   // Check if data is returned, if not exit out of the function
+//   if (lastGrade !== null) {
+//   document.getElementById("saved-name").innerHTML = lastGrade.student;
+//   document.getElementById("saved-grade").innerHTML = lastGrade.grade;
+//   document.getElementById("saved-comment").innerHTML = lastGrade.comment;
+//   } else {
+//     return;
+//   }
+// }
+
+// saveButton.addEventListener("click", function(event) {
+// event.preventDefault();
+// saveLastGrade();
+// renderLastGrade();
+// });
+
+// // The init() function fires when the page is loaded 
+// function init() {
+//   // When the init function is executed, the code inside renderLastGrade function will also execute
+//   renderLastGrade();
+// }
+// init();
