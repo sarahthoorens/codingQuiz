@@ -2,7 +2,10 @@
     box-sizing: border-box;
     margin: 0px;
     padding: 0px;
-    font-family:Georgia, 'Times New Roman', Times, serif;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif
+}
+h1 {
+    font-weight: bolder;
 }
 
 header {
@@ -28,8 +31,8 @@ header {
 .button-grid {
     display:flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    justify-content: start;
+    align-items: start;
     width: 100%;
     margin: 10px, auto;
     padding: 10px;
@@ -37,8 +40,8 @@ header {
 }
 
 .btn {
-    border: 1px solid #8c734e;
-    background-color: #ce7312;
+    border: 1px solid #34023f;
+    background-color: #9212ce;
     color: white;
     min-width: 100px;
     max-width: 400px;
@@ -50,12 +53,12 @@ header {
 }
 .btn:hover {
     cursor: pointer;
-    background-color: #f3d09b;
+    background-color: #d79bf3;
     color: black; 
 }
 
-#start-button, #submit-button {
-    background-color:#8c734e;
+#start-button {
+    background-color:#9212ce;
     /* font-weight: bold; */
     font-size: 18px;
 }
@@ -67,6 +70,7 @@ header {
 
 }
 
+
 #question-section p {
     font-style: italic;
     color:#8c734e;
@@ -74,4 +78,15 @@ header {
 
 .hidden {
     display: none;
+}
+
+
+li {
+    margin: 2px;
+    font-size:large;
+}
+
+p {
+    font-style: italic;
+    color:#8c734e;
 }
