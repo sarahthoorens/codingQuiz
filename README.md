@@ -1,7 +1,7 @@
 # Coding Quiz
 
 Deployment date: 10/4/22</br>
-Deployed address: https://sarahthoorens.github.io/codingquiz/</br>
+Deployed address: https://sarahthoorens.github.io/codingQuiz/</br>
 Topics applied: HTML, CSS, JavaScript, local API</br>
 Project goal: Create a multiple-choice quiz that includes a timer and keeps score.
 
