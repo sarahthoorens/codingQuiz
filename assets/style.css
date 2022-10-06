@@ -108,9 +108,26 @@ form {
 
 }
 
+#scoresList {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    width: 100%;
+    margin: 18px;
+    padding: 10px;
+}
+
+#scoresList h3 {
+    padding: 15px;
+    margin: 10px;
+    text-align: center;
+}
+
 li {
-    margin: 2px;
+    list-style: none;
     font-size:large;
+    padding: 8px;
 }
 
 #response {

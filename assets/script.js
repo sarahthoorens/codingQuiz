@@ -122,7 +122,6 @@ function setNextQuestion () {
       answer4Element.setAttribute('value', choice4);  
     }
 }
-
 // Listen for user input/clicks
 answer1Element.addEventListener('click', checkAnswer)
 answer2Element.addEventListener('click', checkAnswer)
@@ -149,7 +148,6 @@ function checkAnswer(event) {
   response.textContent = 'Wrong, try again!';
   }
 }
-
 // When time is up or questions are all answered (whichever comes first), display score and request intitials
 function endPage() {
   answerButtonsElement.setAttribute('class', 'hidden')
@@ -160,27 +158,34 @@ function endPage() {
 } 
 submitButton = document.querySelector('#submit');
 scoresList.setAttribute('class', ' ');
-scoreboard = document.getElementById('scoreboard')
+scoreboard = document.querySelector('.scoreboard')
 
 /// Set and retreive scores to the local storage 
 // Currently, the function logs the score and initials in local storage, but
 // does not successfully render the scores to the page
 
 function renderLastScores() {
-  var initials = window.localStorage.getItem('initials');
-  var score = local.Storage.getItem('score');
+  var initials = localStorage.getItem('initials');
+  var score = localStorage.getItem('score');
+  formElement.setAttribute('class', 'hidden');
+  scoresList.classList.remove('hidden');
 
+  const li1 = document.createElement('li');
+  li1.textContent = `Intials: ${initials} | Score: ${score}`;
+  console.log(li1);
+  scoreboard.appendChild(li1)
+  console.log(scoreboard);
+
+}
 submitButton.addEventListener('click', function(event) {
   event.preventDefault();
-
   var initials = document.querySelector('#initials').value;
-  
-  window.localStorage.setItem('initials', initials);
+  localStorage.setItem('initials', initials);
   localStorage.setItem('score', score);
- 
+  
   renderLastScores();
 })
-}
+
 
 
 
